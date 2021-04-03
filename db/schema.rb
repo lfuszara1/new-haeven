@@ -21,25 +21,20 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "topic_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["topic_id"], name: "index_comments_on_topic_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name"
-    t.integer "category_id"
     t.integer "topics_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_subcategories_on_category_id"
     t.index ["topics_id"], name: "index_subcategories_on_topics_id"
   end
 
   create_table "topics", force: :cascade do |t|
-    t.integer "subcategory_id"
     t.integer "comments_id"
     t.string "name"
     t.text "content"
@@ -47,7 +42,6 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["comments_id"], name: "index_topics_on_comments_id"
-    t.index ["subcategory_id"], name: "index_topics_on_subcategory_id"
   end
 
   create_table "users", force: :cascade do |t|
