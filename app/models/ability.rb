@@ -3,13 +3,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # Define abilities for the passed in user here. For example:
-
-    user ||= User.new # guest user (not logged in)
-    if user.superadmin_role?
-      can :manage, :all
+    if !user
+      can [:index, :show], :all
+    elsif user
+      can [:new, :create, :edit, :update, :destroy], Topic do |topic|
+        topic.user_id.include? @user.id
+      end
+      can [:new, :create, :edit, :update, :destroy], Comment do |comment|
+        comment.user_id.include? @user.id
+      end
+    elsif user.superadmin_role?
+      can [:index, :show, :new, :create, :edit, :update, :destroy], :all
     end
-
   end
 
 end

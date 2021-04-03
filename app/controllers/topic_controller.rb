@@ -1,37 +1,47 @@
 class TopicController < ApplicationController
 
+  skip_before_action :authenticate_user!, :only => [:index, :show]
+
   def index
     @topics = Topic.all.where(approved: true)
+    authorize! :index, @topics
   end
 
   def show
     @topic = Topic.find(params[:id])
+    authorize! :show, @topic
     @comments = Comment.where(topic_id: @topic)
   end
 
   def new
     @topic = Topic.new
+    authorize! :new, @topic
   end
 
   def create
-    Topic.create(topic_params)
-    redirect_to topic_index_path
+    @topic = Topic.new(topic_params)
+    authorize! :new, @topic
+    @topic.save
+    redirect_to category_subcategory_topic_path(@topic)
   end
 
   def edit
     @topic = Topic.find(params[:id])
+    authorize! :edit, @topic
   end
 
   def update
     @topic = Topic.find(params[:id])
+    authorize! :update, @topic
     @topic.update(topic_params)
-    redirect_to topic_path(@topic)
+    redirect_to category_subcategory_topic_index_path(@topic)
   end
 
   def destroy
     @topic = Topic.find(params[:id])
+    authorize! :destroy, @topic
     @topic.destroy
-    redirect_to topic_index_path
+    redirect_to category_subcategory_topic_index_path(@topic)
   end
 
   private
