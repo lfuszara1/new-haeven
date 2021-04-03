@@ -1,11 +1,12 @@
 class TopicController < ApplicationController
 
   def index
-    @topics = Topic.all
+    @topics = Topic.all.where(approved: true)
   end
 
   def show
     @topic = Topic.find(params[:id])
+    @comments = Comment.where(topic_id: @topic)
   end
 
   def new

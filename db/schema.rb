@@ -14,34 +14,40 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_categories_on_category_id"
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "user_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["topic_id"], name: "index_comments_on_topic_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "subcategories", force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "user_id"
     t.string "name"
-    t.integer "topics_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["topics_id"], name: "index_subcategories_on_topics_id"
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
+    t.index ["user_id"], name: "index_subcategories_on_user_id"
   end
 
   create_table "topics", force: :cascade do |t|
-    t.integer "comments_id"
+    t.integer "subcategory_id"
+    t.integer "user_id"
     t.string "name"
     t.text "content"
     t.boolean "approved", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["comments_id"], name: "index_topics_on_comments_id"
+    t.index ["subcategory_id"], name: "index_topics_on_subcategory_id"
+    t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "categories", "categories"
-  add_foreign_key "subcategories", "topics", column: "topics_id"
-  add_foreign_key "topics", "comments", column: "comments_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "subcategories", "users"
+  add_foreign_key "topics", "users"
 end

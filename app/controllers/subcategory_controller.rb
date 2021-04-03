@@ -1,7 +1,7 @@
 class SubcategoryController < ApplicationController
 
   def index
-    @subcategories = Subcategory.all
+    @subcategories = Subcategory.where(category_id: params[:category_id])
   end
 
   def new

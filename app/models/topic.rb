@@ -1,8 +1,11 @@
 class Topic < ApplicationRecord
 
-  belongs_to :user, :subcategory
+  belongs_to :user
+  belongs_to :subcategory
 
-  validates :name, presence: true, maximum: 255
+  validates :name, presence: true
+  validates :name, length: { maximum: 255 }
+
   validates :content, presence: true
 
 end
