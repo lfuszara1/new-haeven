@@ -7,8 +7,11 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :category
-  resources :subcategory
-  resources :topic
-  resources :comment
+  resources :category, except: ['show'] do
+    resources :subcategory, except: ['show'] do
+      resources :topic do
+        resources :comment, except: %w[index show]
+      end
+    end
+  end
 end
