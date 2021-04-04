@@ -29,7 +29,8 @@ class FormSubcategory extends React.Component {
     if (this.props.subcategory.id !== null) {
       this.setState({
         ...this.state,
-        name: this.props.subcategory.name
+        name: this.props.subcategory.name,
+        user_id: this.props.subcategory.user_id
       })
     }
   }
@@ -41,10 +42,10 @@ class FormSubcategory extends React.Component {
     });
   }
 
-  handleUserIdChange(event) {
+  handleUserIdChange(option) {
     this.setState({
       ...this.state,
-      user_id: event.target.value
+      user_id: option.value
     });
   }
 
@@ -69,7 +70,7 @@ class FormSubcategory extends React.Component {
         <React.Fragment>
           <form onSubmit={this.handleSubmit} ref={this.form}>
             <input type="hidden" name="subcategory[category_id]" value={this.state.category_id} />
-            <Select value={this.options.filter(option => option.value === this.props.subcategory.id)} name="subcategory[user_id]" options={this.options} />
+            <Select value={this.options.filter(option => option.value === this.state.user_id)} name="subcategory[user_id]" options={this.options} onChange={this.handleUserIdChange} />
             <label>
               Nazwa:
               <input type="text" name="subcategory[name]" value={this.state.name} onChange={this.handleNameChange}/>

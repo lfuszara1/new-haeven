@@ -17,6 +17,7 @@ class TopicController < ApplicationController
     @topic = Topic.find(params[:id])
     authorize! :show, @topic
     @comments = Comment.where(topic_id: @topic)
+    @comment = Comment.new
   end
 
   def new

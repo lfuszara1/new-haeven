@@ -18,7 +18,6 @@ class FormTopic extends React.Component {
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
-    this.handleUserIdChange = this.handleUserIdChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -43,13 +42,6 @@ class FormTopic extends React.Component {
     this.setState({
       ...this.state,
       content: event.target.value
-    });
-  }
-
-  handleUserIdChange(event) {
-    this.setState({
-      ...this.state,
-      user_id: event.target.value
     });
   }
 

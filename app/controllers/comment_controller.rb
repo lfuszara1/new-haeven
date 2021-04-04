@@ -1,10 +1,5 @@
 class CommentController < ApplicationController
 
-  def new
-    @comment = Comment.new
-    authorize! :new, @comment
-  end
-
   def create
     @comment = Comment.new(comment_params)
     authorize! :new, @comment
@@ -31,7 +26,7 @@ class CommentController < ApplicationController
   private
 
   def comment_params
-    params.require(:subcategory).permit(:topic_id, :user_id, :content)
+    params.require(:comment).permit(:topic_id, :user_id, :content)
   end
 
 end

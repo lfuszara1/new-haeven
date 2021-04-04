@@ -11,6 +11,7 @@ class Ability
       can [:index, :show, :new, :create, :edit, :update, :destroy], Topic do |topic|
         topic.user_id.include? user.id
       end
+      can [:index, :show, :new, :create, :edit, :update], Comment
       can [:index, :show, :new, :create, :edit, :update, :destroy], Comment do |comment|
         comment.user_id.include? user.id
       end
