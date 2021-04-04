@@ -8,6 +8,7 @@ class SubcategoryController < ApplicationController
   end
 
   def new
+    @users = User.all
     @subcategory = Subcategory.new
     authorize! :new, @subcategory
   end
@@ -16,7 +17,6 @@ class SubcategoryController < ApplicationController
     @subcategory = Subcategory.new(subcategory_params)
     authorize! :create, @subcategory,
     @subcategory.save
-    redirect_to category_subcategory_index_path(@subcategory)
   end
 
   def edit
@@ -28,14 +28,12 @@ class SubcategoryController < ApplicationController
     @subcategory = Subcategory.find(params[:id])
     authorize! :update, @subcategory
     @subcategory.update(subcategory_params)
-    redirect_to category_subcategory_index_path(@subcategory)
   end
 
   def destroy
     @subcategory = Subcategory.find(params[:id])
     authorize! :destroy, @subcategory
     @subcategory.destroy
-    redirect_to category_subcategory_index_path(@subcategory)
   end
 
   private

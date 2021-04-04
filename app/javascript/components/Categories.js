@@ -7,7 +7,7 @@ class Categories extends React.Component {
       <React.Fragment>
         {
           this.props.categories.map((category, id) => (
-              <a key={id} href={window.location.href + "/" + category.id + "/subcategory"}>Link</a>
+              <a key={id} href={window.location.href + "/" + category.id + "/subcategory"}>{category.name}</a>
           ))
         }
       </React.Fragment>

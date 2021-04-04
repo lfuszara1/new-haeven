@@ -22,7 +22,6 @@ class TopicController < ApplicationController
     @topic = Topic.new(topic_params)
     authorize! :new, @topic
     @topic.save
-    redirect_to category_subcategory_topic_path(@topic)
   end
 
   def edit
@@ -34,14 +33,12 @@ class TopicController < ApplicationController
     @topic = Topic.find(params[:id])
     authorize! :update, @topic
     @topic.update(topic_params)
-    redirect_to category_subcategory_topic_index_path(@topic)
   end
 
   def destroy
     @topic = Topic.find(params[:id])
     authorize! :destroy, @topic
     @topic.destroy
-    redirect_to category_subcategory_topic_index_path(@topic)
   end
 
   private
