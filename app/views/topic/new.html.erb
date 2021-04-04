@@ -1,1 +1,1 @@
-<%= react_component("FormSTopic", { topic: @topic, authenticity_token: form_authenticity_token, form_path: category_subcategory_topic_index_url(params[:subcategory_id]), parent_id: params[:subcategory_id], users: @users }) %>
+<%= react_component("FormTopic", { topic: @topic, authenticity_token: form_authenticity_token, form_path: category_subcategory_topic_index_url(params[:subcategory_id]), parent_id: params[:subcategory_id], user: current_user }) %>

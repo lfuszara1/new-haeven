@@ -32,6 +32,8 @@ class FormCategory extends React.Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+
         const formData = new FormData(this.form.current)
 
         fetch(this.props.form_path, {
@@ -43,8 +45,6 @@ class FormCategory extends React.Component {
         }).then(function(response) {
             return response.json();
         });
-
-        event.preventDefault();
     }
 
     render() {

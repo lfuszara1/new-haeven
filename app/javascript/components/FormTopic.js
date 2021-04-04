@@ -9,28 +9,25 @@ class FormTopic extends React.Component {
 
     this.state = {
       subcategory_id: this.props.parent_id,
-      user_id: null,
+      user_id: this.props.user.id,
       name: '',
       content: ''
     };
 
-    this.options = []
-    this.props.users.map(user => {
-      this.options.push({ value: user.id, label: user.email })
-    })
-
     this.form = React.createRef()
 
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
     this.handleUserIdChange = this.handleUserIdChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.subcategory.id !== null) {
+    if (this.props.topic.id !== null) {
       this.setState({
         ...this.state,
-        name: this.props.subcategory.name
+        name: this.props.topic.name,
+        content: this.props.topic.content
       })
     }
   }
@@ -42,6 +39,13 @@ class FormTopic extends React.Component {
     });
   }
 
+  handleContentChange(event) {
+    this.setState({
+      ...this.state,
+      content: event.target.value
+    });
+  }
+
   handleUserIdChange(event) {
     this.setState({
       ...this.state,
@@ -50,10 +54,12 @@ class FormTopic extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
     const formData = new FormData(this.form.current)
 
     fetch(this.props.form_path, {
-      method: this.props.subcategory.id === null ? 'POST' : 'PATCH',
+      method: this.props.topic.id === null ? 'POST' : 'PATCH',
       headers: {
         'X-CSRF-Token': this.props.authenticity_token,
       },
@@ -61,19 +67,21 @@ class FormTopic extends React.Component {
     }).then(function(response) {
       return response.json();
     });
-
-    event.preventDefault();
   }
 
   render() {
     return (
         <React.Fragment>
           <form onSubmit={this.handleSubmit} ref={this.form}>
-            <input type="hidden" name="subcategory[category_id]" value={this.state.category_id} />
-            <Select value={this.options.filter(option => option.value === this.props.topic.id)} name="subcategory[user_id]" options={this.options}  />
+            <input type="hidden" name="topic[subcategory_id]" value={this.state.subcategory_id} />
+            <input type="hidden" name="topic[user_id]" value={this.state.user_id} />
             <label>
               Nazwa:
-              <input type="text" name="subcategory[name]" value={this.state.name} onChange={this.handleNameChange}/>
+              <input type="text" name="topic[name]" value={this.state.name} onChange={this.handleNameChange}/>
+            </label>
+            <label>
+              Treść:
+              <textarea type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
             </label>
             <input type="submit" value="Wyślij"/>
           </form>

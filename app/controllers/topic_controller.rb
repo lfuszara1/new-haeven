@@ -4,10 +4,10 @@ class TopicController < ApplicationController
 
   def index
     if can? :destroy, Topic
-      @topics = Topic.where(subcategory_id: params[:id])
+      @topics = Topic.where(subcategory_id: params[:subcategory_id])
       @can_modify = true
     else
-      @topics = Topic.where(subcategory_id: params[:id]).where(approved: true)
+      @topics = Topic.where(subcategory_id: params[:subcategory_id]).where(approved: true)
       @can_modify = false
     end
     authorize! :index, @topics
@@ -20,7 +20,6 @@ class TopicController < ApplicationController
   end
 
   def new
-    @users = User.all
     @topic = Topic.new
     authorize! :new, @topic
   end
@@ -32,7 +31,6 @@ class TopicController < ApplicationController
   end
 
   def edit
-    @users = User.all
     @topic = Topic.find(params[:id])
     authorize! :edit, @topic
   end
@@ -52,7 +50,7 @@ class TopicController < ApplicationController
   private
 
   def topic_params
-    params.require(:subcategory).permit(:subcategory_id, :user_id, :name, :content)
+    params.require(:topic).permit(:subcategory_id, :user_id, :name, :content)
   end
 
 end
