@@ -3,7 +3,11 @@ class TopicController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index, :show]
 
   def index
-    @topics = Topic.all.where(approved: true)
+    if current_user && current_user.superadmin_role?
+      @topics = Topic.all
+    else
+      @topics = Topic.where(approved: true)
+    end
     authorize! :index, @topics
   end
 
