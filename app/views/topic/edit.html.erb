@@ -1,2 +1,1 @@
-<h1>Topic#edit</h1>
-<p>Find me in app/views/topic/edit.html.erb</p>
+<%= react_component("FormTopic", { topic: @topic, authenticity_token: form_authenticity_token, form_path: category_subcategory_topic_path(params[:category_id], params[:subcategory_id], params[:id]), parent_id: params[:subcategory_id], users: @users }) %>

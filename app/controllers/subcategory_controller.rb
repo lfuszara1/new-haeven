@@ -20,6 +20,7 @@ class SubcategoryController < ApplicationController
   end
 
   def edit
+    @users = User.all
     @subcategory = Subcategory.find(params[:id])
     authorize! :edit, @subcategory
   end

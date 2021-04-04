@@ -3,10 +3,12 @@ class TopicController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index, :show]
 
   def index
-    if current_user && current_user.superadmin_role?
-      @topics = Topic.all
+    if can? :destroy, Topic
+      @topics = Topic.where(subcategory_id: params[:id])
+      @can_modify = true
     else
-      @topics = Topic.where(approved: true)
+      @topics = Topic.where(subcategory_id: params[:id]).where(approved: true)
+      @can_modify = false
     end
     authorize! :index, @topics
   end
@@ -18,6 +20,7 @@ class TopicController < ApplicationController
   end
 
   def new
+    @users = User.all
     @topic = Topic.new
     authorize! :new, @topic
   end
@@ -29,6 +32,7 @@ class TopicController < ApplicationController
   end
 
   def edit
+    @users = User.all
     @topic = Topic.find(params[:id])
     authorize! :edit, @topic
   end

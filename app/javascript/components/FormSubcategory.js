@@ -69,7 +69,7 @@ class FormSubcategory extends React.Component {
         <React.Fragment>
           <form onSubmit={this.handleSubmit} ref={this.form}>
             <input type="hidden" name="subcategory[category_id]" value={this.state.category_id} />
-            <Select name="subcategory[user_id]" options={this.options} />
+            <Select value={this.options.filter(option => option.value === this.props.subcategory.id)} name="subcategory[user_id]" options={this.options} />
             <label>
               Nazwa:
               <input type="text" name="subcategory[name]" value={this.state.name} onChange={this.handleNameChange}/>
