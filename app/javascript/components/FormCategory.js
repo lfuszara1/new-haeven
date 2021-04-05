@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import history from "./history";
 import { hot } from 'react-hot-loader/root';
 
 class FormCategory extends React.Component {
@@ -49,7 +48,7 @@ class FormCategory extends React.Component {
             return response.json();
         });
 
-        history.back();
+        window.history.back();
     }
 
     render() {

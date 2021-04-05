@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import history from "./history";
 import { hot } from 'react-hot-loader/root';
 
 class FormAdminTopic extends React.Component {
@@ -69,7 +68,7 @@ class FormAdminTopic extends React.Component {
       return response.json();
     });
 
-    history.back();
+    window.history.back();
   }
 
   render() {

@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import Select from 'react-select'
-import history from "./history";
 import { hot } from 'react-hot-loader/root';
 
 class FormSubcategory extends React.Component {
@@ -66,7 +65,7 @@ class FormSubcategory extends React.Component {
       return response.json();
     });
 
-    history.back();
+    window.history.back();
   }
 
   render() {
