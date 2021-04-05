@@ -15,7 +15,7 @@ class SubcategoryController < ApplicationController
 
   def create
     @subcategory = Subcategory.new(subcategory_params)
-    authorize! :create, @subcategory,
+    authorize! :create, @subcategory
     @subcategory.save
   end
 

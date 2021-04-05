@@ -8,13 +8,9 @@ class Ability
     elsif user.superadmin_role?
       can [:index, :show, :new, :create, :edit, :update, :destroy], :all
     elsif user
-      can [:index, :show, :new, :create, :edit, :update, :destroy], Topic do |topic|
-        topic.user_id == user.id
-      end
+      can [:index, :show, :new, :create, :edit, :update, :destroy], Topic, user_id: user.id
       can [:index, :show, :new, :create, :edit, :update], Comment
-      can [:index, :show, :new, :create, :edit, :update, :destroy], Comment do |comment|
-        comment.user_id == user.id
-      end
+      can [:index, :show, :new, :create, :edit, :update, :destroy], Comment, user_id: user.id
     end
   end
 
