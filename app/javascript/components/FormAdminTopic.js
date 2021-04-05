@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-class FormTopic extends React.Component {
+class FormAdminTopic extends React.Component {
   constructor(props) {
     super(props);
 
@@ -16,6 +16,7 @@ class FormTopic extends React.Component {
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleContentChange = this.handleContentChange.bind(this);
+    this.handleApprovedChange = this.handleApprovedChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -40,6 +41,13 @@ class FormTopic extends React.Component {
     this.setState({
       ...this.state,
       content: event.target.value
+    });
+  }
+
+  handleApprovedChange(event) {
+    this.setState({
+      ...this.state,
+      approved: event.target.checked
     });
   }
 
@@ -73,6 +81,10 @@ class FormTopic extends React.Component {
               Treść:
               <textarea type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
             </label>
+            <label>
+              Zatwierdzony:
+              <input type="checkbox" name="topic[approved]" value={this.state.approved} onChange={this.handleApprovedChange}/>
+            </label>
             <input type="submit" value="Wyślij"/>
           </form>
         </React.Fragment>
@@ -80,4 +92,4 @@ class FormTopic extends React.Component {
   }
 }
 
-export default FormTopic
+export default FormAdminTopic

@@ -9,14 +9,14 @@ class Topics extends React.Component {
                     <a href={this.props.new_topic}>Nowy temat</a>
                     {
                         this.props.topics.map((topic, id) =>
-                            <React.Fragment>
+                            <div key={id}>
                                 <div>
-                                    <a key={id} href={window.location.href + "/" + topic.id}>{topic.name}</a>
+                                    <a href={window.location.href + "/" + topic.id}>{topic.name}</a>
                                 </div>
                                 <div>
                                     { (topic.content.length > 255) ? (topic.content.substring(0, 255) + "...") : topic.content }
                                 </div>
-                            </React.Fragment>
+                            </div>
                         )
                     }
                 </div>
