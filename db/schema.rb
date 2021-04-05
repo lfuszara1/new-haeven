@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_04_03_095519) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -19,8 +22,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "topic_id"
-    t.integer "user_id"
+    t.bigint "topic_id"
+    t.bigint "user_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -29,8 +32,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
   end
 
   create_table "subcategories", force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "user_id"
+    t.bigint "category_id"
+    t.bigint "user_id"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -39,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_04_03_095519) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.integer "subcategory_id"
-    t.integer "user_id"
+    t.bigint "subcategory_id"
+    t.bigint "user_id"
     t.string "name"
     t.text "content"
     t.boolean "approved", default: false
