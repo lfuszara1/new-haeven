@@ -12,7 +12,7 @@ class Ability
       can [:index, :show, :new, :edit], :all
       can [:create, :update, :destroy], [Topic, Comment], user_id: user.id
       can [:create, :update], Comment
-      can [:create, :update, :destroy], Comment, user_id: user.id
+      can :destroy, Comment, user_id: user.id
     end
   end
 
