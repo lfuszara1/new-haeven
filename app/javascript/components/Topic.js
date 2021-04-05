@@ -7,11 +7,18 @@ class Topic extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            topic_id: this.props.topic.id,
-            user_id: this.props.user.id,
-            content: ''
-        };
+        if (this.props.active_user) {
+            this.state = {
+                topic_id: this.props.topic.id,
+                user_id: this.props.active_user.id,
+                content: ''
+            };
+        } else {
+            this.state = {
+                topic_id: this.props.topic.id,
+                content: ''
+            };
+        }
 
         this.form = React.createRef()
 
