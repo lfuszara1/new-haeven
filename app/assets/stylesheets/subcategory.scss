@@ -1,3 +1,14 @@
-// Place all the styles related to the Subcategory controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.subcategories {
+  margin-top: 20px;
+}
+
+.subcategory {
+  display: block;
+  background-color: #1C9C7C;
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 20px;
+  margin: 10px 0;
+  padding-left: 10px;
+  width: 100%;
+}

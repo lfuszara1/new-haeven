@@ -8,7 +8,7 @@ class FormComment extends React.Component {
     this.state = {
       topic_id: this.props.parent_id,
       user_id: this.props.user.id,
-      content: ''
+      content: this.props.comment.content
     };
 
     this.form = React.createRef()

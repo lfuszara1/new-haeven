@@ -41,29 +41,47 @@ class Topic extends React.Component {
 
     render () {
         return (
-            <React.Fragment>
-                <a href={this.props.edit_topic}>Edytuj temat</a>
-                <a href={this.props.new_comment}>Nowy Komentarz</a>
-                { this.props.topic.name }
-                { this.props.topic.content }
-                {
-                    this.props.comments.map((comment, id) => (
-                        <div>
-                            { comment.content }
-                            <a key={id} href={window.location.href + "/edit"}>Edytuj</a>
+            <div className="wrapper">
+                <div className="content">
+                    <a className="button" href={this.props.edit_topic}>Edytuj temat</a>
+                    <a className="button" href={this.props.new_comment}>Nowy Komentarz</a>
+                    <div className="topicShow">
+                        <div className="topic firstComment">
+                            <div className="topicUser">
+                                { this.props.user.email }
+                            </div>
+                            <div className="topicContent">
+                                <h3>{ this.props.topic.name }</h3>
+                                <p>{ this.props.topic.content }</p>
+                            </div>
                         </div>
-                    ))
-                }
-                <form onSubmit={this.handleSubmit} ref={this.form}>
-                    <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
-                    <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
-                    <label>
-                        Treść:
-                        <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
-                    </label>
-                    <input type="submit" value="Wyślij"/>
-                </form>
-            </React.Fragment>
+                        <div className="topics">
+                            {
+                                this.props.comments_with_users.map((comment, id) => (
+                                    <div className="topic">
+                                        <div className="topicUser">
+                                            <p>{ comment[1].email }</p>
+                                            <a href={window.location.href + "/comment/" + comment[0].id + "/edit"}>Edytuj</a>
+                                        </div>
+                                        <div className="topicContent" key={id}>
+                                            { comment[0].content }
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <form onSubmit={this.handleSubmit} ref={this.form}>
+                            <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
+                            <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
+                            <label>
+                                Treść:
+                                <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
+                            </label>
+                            <input type="submit" value="Wyślij"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

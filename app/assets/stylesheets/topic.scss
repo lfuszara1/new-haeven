@@ -1,3 +1,33 @@
-// Place all the styles related to the Topic controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.topics {
+  margin-top: 20px;
+}
+
+.topic {
+  display: flex;
+  background-color: #1C9C7C;
+  border-radius: 5px;
+  border: 1px solid black;
+  height: 20px;
+  margin: 10px 0;
+  padding-left: 10px;
+  width: 100%;
+  height: 200px;
+}
+
+.topicUser {
+  width: 100px;
+  max-width: 100px;
+  border-right: 1px solid black;
+  padding: 10px 0;
+}
+.topicContent {
+  padding: 10px;
+}
+
+.topicShow {
+  margin: 50px 0;
+}
+
+.firstComment {
+  background-color: #FFF170;
+}

@@ -8,6 +8,11 @@ class TopicController < ApplicationController
     else
       @topics = Topic.where(subcategory_id: params[:subcategory_id]).where(approved: true)
     end
+    @users = []
+    @topics.each do |topic|
+      @users << User.find(topic.user_id)
+    end
+    @topics_with_users = @topics.zip(@users)
     authorize! :index, @topics
   end
 
@@ -15,6 +20,11 @@ class TopicController < ApplicationController
     @topic = Topic.find(params[:id])
     authorize! :show, @topic
     @comments = Comment.where(topic_id: @topic)
+    @users = []
+    @comments.each do |comment|
+      @users << User.find(comment.user_id)
+    end
+    @comments_with_users = @comments.zip(@users)
     @comment = Comment.new
   end
 
