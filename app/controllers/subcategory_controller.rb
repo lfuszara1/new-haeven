@@ -3,7 +3,7 @@ class SubcategoryController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
 
   def index
-    @subcategories = Subcategory.where(category_id: params[:category_id])
+    @subcategories = Subcategory.order('name DESC').where(category_id: params[:category_id])
     authorize! :index, @subcategories
   end
 

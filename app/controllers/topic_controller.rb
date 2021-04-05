@@ -4,9 +4,9 @@ class TopicController < ApplicationController
 
   def index
     if can? :destroy, Topic
-      @topics = Topic.where(subcategory_id: params[:subcategory_id])
+      @topics = Topic.where(subcategory_id: params[:subcategory_id]).order('name DESC')
     else
-      @topics = Topic.where(subcategory_id: params[:subcategory_id]).where(approved: true)
+      @topics = Topic.where(subcategory_id: params[:subcategory_id]).where(approved: true).order('name DESC')
     end
     @users = []
     @topics.each do |topic|

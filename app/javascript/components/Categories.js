@@ -1,9 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import { hot } from 'react-hot-loader/root';
+
 class Categories extends React.Component {
   render () {
-    console.log(this.props.new_category)
     return (
       <div className="wrapper">
         <div className="content">
@@ -21,4 +22,4 @@ class Categories extends React.Component {
   }
 }
 
-export default Categories
+export default hot(Categories);

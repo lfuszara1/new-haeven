@@ -1,6 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import history from "./history";
+import { hot } from 'react-hot-loader/root';
+
 class FormComment extends React.Component {
   constructor(props) {
     super(props);
@@ -38,6 +41,8 @@ class FormComment extends React.Component {
     }).then(function(response) {
       return response.json();
     });
+
+    history.back();
   }
 
   render () {
@@ -57,4 +62,4 @@ class FormComment extends React.Component {
   }
 }
 
-export default FormComment
+export default hot(FormComment);

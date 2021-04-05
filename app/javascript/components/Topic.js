@@ -1,5 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
+
+import { hot } from 'react-hot-loader/root';
+
 class Topic extends React.Component {
     constructor(props) {
         super(props);
@@ -44,7 +47,6 @@ class Topic extends React.Component {
             <div className="wrapper">
                 <div className="content">
                     <a className="button" href={this.props.edit_topic}>Edytuj temat</a>
-                    <a className="button" href={this.props.new_comment}>Nowy Komentarz</a>
                     <div className="topicShow">
                         <div className="topic firstComment">
                             <div className="topicUser">
@@ -86,4 +88,4 @@ class Topic extends React.Component {
     }
 }
 
-export default Topic
+export default hot(Topic);

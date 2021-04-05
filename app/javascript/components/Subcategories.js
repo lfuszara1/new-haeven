@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Select from 'react-select'
+import { hot } from 'react-hot-loader/root';
 
 class Subcategories extends React.Component {
     render () {
@@ -23,4 +23,4 @@ class Subcategories extends React.Component {
     }
 }
 
-export default Subcategories
+export default hot(Subcategories);

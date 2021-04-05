@@ -1,6 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import history from "./history";
+import { hot } from 'react-hot-loader/root';
+
 class FormTopic extends React.Component {
   constructor(props) {
     super(props);
@@ -57,6 +60,8 @@ class FormTopic extends React.Component {
     }).then(function(response) {
       return response.json();
     });
+
+    history.back();
   }
 
   render() {
@@ -80,4 +85,4 @@ class FormTopic extends React.Component {
   }
 }
 
-export default FormTopic
+export default hot(FormTopic);

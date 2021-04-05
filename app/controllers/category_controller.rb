@@ -3,7 +3,7 @@ class CategoryController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index]
 
   def index
-    @categories = Category.all
+    @categories = Category.order('name DESC')
     authorize! :index, @categories
   end
 

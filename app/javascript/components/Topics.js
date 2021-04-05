@@ -1,5 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
+
+import { hot } from 'react-hot-loader/root';
+
 class Topics extends React.Component {
     render () {
         return (
@@ -32,4 +35,4 @@ class Topics extends React.Component {
     }
 }
 
-export default Topics
+export default hot(Topics);
