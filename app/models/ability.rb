@@ -3,7 +3,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    p user
     if !user
       can [:index, :show], :all
     elsif user.superadmin_role?
