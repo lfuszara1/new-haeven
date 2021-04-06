@@ -11,7 +11,7 @@
   margin: 10px 0;
   padding-left: 10px;
   width: 100%;
-  height: 200px;
+  min-height: 200px;
 }
 
 .topicUser {
@@ -22,6 +22,8 @@
 }
 .topicContent {
   padding: 10px;
+  min-height: 180px;
+  overflow: auto;
 }
 
 .topicShow {

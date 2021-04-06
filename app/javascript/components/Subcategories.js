@@ -10,6 +10,8 @@ class Subcategories extends React.Component {
         this.form = React.createRef()
 
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.handleGoBack = this.handleGoBack.bind(this);
     }
 
     handleSubmit(event) {
@@ -28,10 +30,31 @@ class Subcategories extends React.Component {
         });
     }
 
+    handleGoBack() {
+        const host = window.location.protocol + "//" + window.location.host;
+        const paths = window.location.pathname.split('/');
+        let urls = []
+        paths.forEach((element) => {
+            if (element !== "/") {
+                urls.push(element)
+            }
+        })
+        let url = [];
+        let i = 0;
+        while (i < 2) {
+            url.push(urls[i]);
+            i += 1
+        }
+        const fullUrl = host + url.join('/');
+        window.history.pushState({}, '', fullUrl);
+        window.location.reload();
+    }
+
     render () {
         return (
             <div className="wrapper">
                 <div className="content">
+                    <a className="button" onClick={this.handleGoBack}>Wstecz</a>
                     {
                         this.props.can_update ?
                             <a className="button" href={this.props.edit_category}>Edytuj kategorię</a> :

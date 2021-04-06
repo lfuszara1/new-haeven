@@ -26,6 +26,8 @@ class Topic extends React.Component {
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
+
+        this.handleGoBack = this.handleGoBack.bind(this);
     }
 
     handleDeleteSubmit(event) {
@@ -67,10 +69,31 @@ class Topic extends React.Component {
         });
     }
 
+    handleGoBack() {
+        const host = window.location.protocol + "//" + window.location.host;
+        const paths = window.location.pathname.split('/');
+        let urls = []
+        paths.forEach((element) => {
+            if (element !== "/") {
+                urls.push(element)
+            }
+        })
+        let url = [];
+        let i = 0;
+        while (i < 6) {
+            url.push(urls[i]);
+            i += 1
+        }
+        const fullUrl = host + url.join('/');
+        window.history.pushState({}, '', fullUrl);
+        window.location.reload();
+    }
+
     render () {
         return (
             <div className="wrapper">
                 <div className="content">
+                    <a className="button" onClick={this.handleGoBack}>Wstecz</a>
                     <a className="button" href={this.props.edit_topic}>Edytuj temat</a>
                     <div className="topicShow">
                         <div className="topic firstComment">
@@ -105,15 +128,19 @@ class Topic extends React.Component {
                                 ))
                             }
                         </div>
-                        <form onSubmit={this.handleSubmit} ref={this.form}>
-                            <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
-                            <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
-                            <label>
-                                Treść:
-                                <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
-                            </label>
-                            <input type="submit" value="Wyślij"/>
-                        </form>
+                        {
+                            this.props.can_create ?
+                                <form onSubmit={this.handleSubmit} ref={this.form}>
+                                    <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
+                                    <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
+                                    <label>
+                                        Treść:
+                                        <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
+                                    </label>
+                                    <input type="submit" value="Wyślij"/>
+                                </form> :
+                                undefined
+                        }
                     </div>
                 </div>
             </div>
