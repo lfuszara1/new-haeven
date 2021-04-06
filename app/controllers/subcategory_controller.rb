@@ -4,6 +4,11 @@ class SubcategoryController < ApplicationController
 
   def index
     @subcategories = Subcategory.order('name DESC').where(category_id: params[:category_id])
+    @users = []
+    @subcategories.each do |subcategory|
+      @users << User.find(subcategory.user_id)
+    end
+    @subcategories_with_users = @subcategories.zip(@users)
     authorize! :index, @subcategories
   end
 

@@ -12,8 +12,8 @@ class Subcategories extends React.Component {
                     <a className="button" href={this.props.new_subcategory}>Nowa podkategoria</a>
                     <div className="subcategories">
                         {
-                            this.props.subcategories.map((subcategory, id) => (
-                                <a className="subcategory" key={id} href={window.location.href + "/" + subcategory.id + "/topic"}>{subcategory.name}</a>
+                            this.props.subcategories_with_users.map((subcategory, id) => (
+                                <div className="subcategory">Właściciel: {subcategory[1].email} | <a className="subcategoryLink" key={id} href={window.location.href + "/" + subcategory[0].id + "/topic"}>{subcategory[0].name}</a></div>
                             ))
                         }
                     </div>
