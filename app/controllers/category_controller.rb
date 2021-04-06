@@ -4,6 +4,11 @@ class CategoryController < ApplicationController
 
   def index
     @categories = Category.order('name DESC')
+    if can? :destroy, Category
+      @can_destroy = true
+    else
+      @can_destroy = false
+    end
     authorize! :index, @categories
   end
 
@@ -30,7 +35,7 @@ class CategoryController < ApplicationController
   end
 
   def destroy
-    @category = Category.find(params[:id])
+    @category = Category.find(destroy_category_params[:id])
     authorize! :destroy, @category
     @category.destroy
   end
@@ -39,6 +44,10 @@ class CategoryController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name)
+  end
+
+  def destroy_category_params
+    params.require(:category).permit(:id)
   end
 
 end

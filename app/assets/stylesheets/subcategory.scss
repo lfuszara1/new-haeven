@@ -7,12 +7,17 @@
   background-color: #1C9C7C;
   border-radius: 5px;
   border: 1px solid black;
-  height: 20px;
+  height: 30px;
   margin: 10px 0;
   padding-left: 10px;
   width: 100%;
 }
 
-.subcategoryLink {
-  display: inline;
+.subcategoryWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.subcategoryForm {
+  margin: 0 10px 0 auto;
 }

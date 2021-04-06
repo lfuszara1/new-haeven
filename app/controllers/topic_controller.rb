@@ -13,6 +13,16 @@ class TopicController < ApplicationController
       @users << User.find(topic.user_id)
     end
     @topics_with_users = @topics.zip(@users)
+    if can? [:create, :update], Topic
+      @can_modify = true
+    else
+      @can_modify = false
+    end
+    if can? :destroy, Topic
+      @can_destroy = true
+    else
+      @can_destroy = false
+    end
     authorize! :index, @topics
   end
 
@@ -27,6 +37,17 @@ class TopicController < ApplicationController
     end
     @comments_with_users = @comments.zip(@users)
     @comment = Comment.new
+    if can? [:create, :update], Comment
+      @can_modify = true
+    else
+      @can_modify = false
+    end
+    if can? :destroy, Comment
+      @can_destroy = true
+    else
+      @can_destroy = false
+    end
+    authorize! :show, @topic
   end
 
   def new
