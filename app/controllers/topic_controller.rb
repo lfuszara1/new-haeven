@@ -13,15 +13,20 @@ class TopicController < ApplicationController
       @users << User.find(topic.user_id)
     end
     @topics_with_users = @topics.zip(@users)
-    if can? [:create, :update], Topic
-      @can_modify = true
-    else
-      @can_modify = false
-    end
     if can? :destroy, Topic
       @can_destroy = true
     else
       @can_destroy = false
+    end
+    if can? :create, Topic
+      @can_create = true
+    else
+      @can_create = false
+    end
+    if can? :update, Subcategory
+      @can_update = true
+    else
+      @can_update = false
     end
     authorize! :index, @topics
   end
@@ -37,15 +42,20 @@ class TopicController < ApplicationController
     end
     @comments_with_users = @comments.zip(@users)
     @comment = Comment.new
-    if can? [:create, :update], Comment
-      @can_modify = true
-    else
-      @can_modify = false
-    end
     if can? :destroy, Comment
       @can_destroy = true
     else
       @can_destroy = false
+    end
+    if can? :create, Comment
+      @can_create = true
+    else
+      @can_create = false
+    end
+    if can? :update, Topic
+      @can_update = true
+    else
+      @can_update = false
     end
     authorize! :show, @topic
   end
@@ -91,7 +101,7 @@ class TopicController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:id])
+    @topic = Topic.find(destroy_topic_params[:id])
     authorize! :destroy, @topic
     @topic.destroy
   end
@@ -104,6 +114,10 @@ class TopicController < ApplicationController
 
   def topic_admin_params
     params.require(:topic).permit(:subcategory_id, :user_id, :name, :content, :approved)
+  end
+
+  def destroy_topic_params
+    params.require(:topic).permit(:id)
   end
 
 end

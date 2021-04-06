@@ -21,9 +21,27 @@ class Topic extends React.Component {
         }
 
         this.form = React.createRef()
+        this.form_delete = React.createRef()
 
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
+    }
+
+    handleDeleteSubmit(event) {
+        event.preventDefault();
+
+        let formData = new FormData(this.form_delete.current)
+
+        fetch(window.location.href + "/comment/delete", {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-Token': this.props.authenticity_token,
+            },
+            body: formData
+        }).then(function(response) {
+            return response.json();
+        });
     }
 
     handleContentChange(event) {
@@ -67,10 +85,18 @@ class Topic extends React.Component {
                         <div className="topics">
                             {
                                 this.props.comments_with_users.map((comment, id) => (
-                                    <div className="topic">
+                                    <div key={id} className="topic">
                                         <div className="topicUser">
                                             <p>{ comment[1].email }</p>
                                             <a href={window.location.href + "/comment/" + comment[0].id + "/edit"}>Edytuj</a>
+                                            {
+                                                this.props.can_destroy ?
+                                                    <form onSubmit={this.handleDeleteSubmit} ref={this.form_delete}>
+                                                        <input type="hidden" name="comment[id]" value={comment[0].id} />
+                                                        <input type="submit" value="Usuń"/>
+                                                    </form> :
+                                                    undefined
+                                            }
                                         </div>
                                         <div className="topicContent" key={id}>
                                             { comment[0].content }
