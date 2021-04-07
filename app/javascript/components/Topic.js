@@ -26,7 +26,6 @@ class Topic extends React.Component {
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteSubmit = this.handleDeleteSubmit.bind(this);
-
         this.handleGoBack = this.handleGoBack.bind(this);
     }
 
@@ -65,7 +64,7 @@ class Topic extends React.Component {
             },
             body: formData
         }).then(function(response) {
-            return response.json();
+            window.location.reload();
         });
     }
 

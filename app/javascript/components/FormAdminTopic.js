@@ -20,6 +20,7 @@ class FormAdminTopic extends React.Component {
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleApprovedChange = this.handleApprovedChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGoBack = this.handleGoBack.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,7 @@ class FormAdminTopic extends React.Component {
 
     const formData = new FormData(this.form.current)
 
+    const that = this;
     fetch(this.props.form_path, {
       method: this.props.topic.id === null ? 'POST' : 'PATCH',
       headers: {
@@ -65,33 +67,54 @@ class FormAdminTopic extends React.Component {
       },
       body: formData
     }).then(function(response) {
-      return response.json();
+      that.handleGoBack()
     });
+  }
 
-    window.history.back();
+  handleGoBack() {
+    const host = window.location.protocol + "//" + window.location.host;
+    const paths = window.location.pathname.split('/');
+    let urls = []
+    paths.forEach((element) => {
+      if (element !== "/") {
+        urls.push(element)
+      }
+    })
+    let url = [];
+    let i = 0;
+    while (i < 6) {
+      url.push(urls[i]);
+      i += 1
+    }
+    const fullUrl = host + url.join('/');
+    window.history.pushState({}, '', fullUrl);
+    window.location.reload();
   }
 
   render() {
     return (
-        <React.Fragment>
-          <form onSubmit={this.handleSubmit} ref={this.form}>
-            <input type="hidden" name="topic[subcategory_id]" value={this.state.subcategory_id} />
-            <input type="hidden" name="topic[user_id]" value={this.state.user_id} />
-            <label>
-              Nazwa:
-              <input type="text" name="topic[name]" value={this.state.name} onChange={this.handleNameChange}/>
-            </label>
-            <label>
-              Treść:
-              <textarea type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
-            </label>
-            <label>
-              Zatwierdzony:
-              <input type="checkbox" name="topic[approved]" value={this.state.approved} onChange={this.handleApprovedChange}/>
-            </label>
-            <input type="submit" value="Wyślij"/>
-          </form>
-        </React.Fragment>
+        <div className="wrapper">
+          <div className="content">
+            <a className="button" onClick={this.handleGoBack}>Wstecz</a>
+            <form onSubmit={this.handleSubmit} ref={this.form}>
+              <input type="hidden" name="topic[subcategory_id]" value={this.state.subcategory_id} />
+              <input type="hidden" name="topic[user_id]" value={this.state.user_id} />
+              <label>
+                Nazwa:
+                <input type="text" name="topic[name]" value={this.state.name} onChange={this.handleNameChange}/>
+              </label>
+              <label>
+                Treść:
+                <textarea type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
+              </label>
+              <label>
+                Zatwierdzony:
+                <input type="checkbox" name="topic[approved]" value={this.state.approved} onChange={this.handleApprovedChange}/>
+              </label>
+              <input type="submit" value="Wyślij"/>
+            </form>
+          </div>
+        </div>
     );
   }
 }
