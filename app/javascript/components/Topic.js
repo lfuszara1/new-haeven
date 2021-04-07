@@ -41,7 +41,7 @@ class Topic extends React.Component {
             },
             body: formData
         }).then(function(response) {
-            return response.json();
+            window.location.reload();
         });
     }
 
@@ -129,13 +129,13 @@ class Topic extends React.Component {
                         </div>
                         {
                             this.props.can_create ?
-                                <form onSubmit={this.handleSubmit} ref={this.form}>
+                                <form onSubmit={this.handleSubmit} ref={this.form} className="mainForm">
                                     <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
                                     <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
-                                    <label>
-                                        Treść:
-                                        <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
-                                    </label>
+
+                                    <label htmlFor="content">Treść:</label>
+                                    <textarea id="content" type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
+
                                     <input type="submit" value="Wyślij"/>
                                 </form> :
                                 undefined

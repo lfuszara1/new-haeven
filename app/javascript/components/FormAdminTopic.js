@@ -96,21 +96,19 @@ class FormAdminTopic extends React.Component {
         <div className="wrapper">
           <div className="content">
             <a className="button" onClick={this.handleGoBack}>Wstecz</a>
-            <form onSubmit={this.handleSubmit} ref={this.form}>
+            <form onSubmit={this.handleSubmit} ref={this.form} className="mainForm">
               <input type="hidden" name="topic[subcategory_id]" value={this.state.subcategory_id} />
               <input type="hidden" name="topic[user_id]" value={this.state.user_id} />
-              <label>
-                Nazwa:
-                <input type="text" name="topic[name]" value={this.state.name} onChange={this.handleNameChange}/>
-              </label>
-              <label>
-                Treść:
-                <textarea type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
-              </label>
-              <label>
-                Zatwierdzony:
-                <input type="checkbox" name="topic[approved]" value={this.state.approved} onChange={this.handleApprovedChange}/>
-              </label>
+
+              <label htmlFor="name">Nazwa:</label>
+              <input type="text" id="name" name="topic[name]" value={this.state.name} onChange={this.handleNameChange}/>
+
+              <label htmlFor="content">Treść:</label>
+              <textarea id="content" type="text" name="topic[content]" value={this.state.content} onChange={this.handleContentChange}/>
+
+              <label htmlFor="approved">Zatwierdzony:</label>
+              <input id="approved" type="checkbox" name="topic[approved]" value={this.state.approved} onChange={this.handleApprovedChange}/>
+
               <input type="submit" value="Wyślij"/>
             </form>
           </div>

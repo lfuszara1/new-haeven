@@ -72,36 +72,20 @@ class FormCategory extends React.Component {
     }
 
     render() {
-        if (this.props.category.id === null) {
-            return (
-                <div className="wrapper">
-                    <div className="content">
-                        <a className="button" onClick={this.handleGoBack}>Wstecz</a>
-                        <form onSubmit={this.handleSubmit} ref={this.form}>
-                            <label>
-                                Nazwa:
-                                <input type="text" name="category[name]" value={this.state.name} onChange={this.handleNameChange}/>
-                            </label>
-                            <input type="submit" value="Wyślij"/>
-                        </form>
-                    </div>
+        return (
+            <div className="wrapper">
+                <div className="content">
+                    <a className="button" onClick={this.handleGoBack}>Wstecz</a>
+                    <form onSubmit={this.handleSubmit} ref={this.form} className="mainForm">
+
+                        <label htmlFor="name">Nazwa:</label>
+                        <input id="name" type="text" name="category[name]" value={this.state.name} onChange={this.handleNameChange}/>
+
+                        <input type="submit" value="Wyślij"/>
+                    </form>
                 </div>
-            );
-        } else {
-            return (
-                <div className="wrapper">
-                    <div className="content">
-                        <form onSubmit={this.handleSubmit} ref={this.form}>
-                            <label>
-                                Nazwa:
-                                <input type="text" name="category[name]" value={this.state.name} onChange={this.handleNameChange}/>
-                            </label>
-                            <input type="submit" value="Wyślij"/>
-                        </form>
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        );
     }
 }
 

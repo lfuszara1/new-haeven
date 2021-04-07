@@ -69,13 +69,13 @@ class FormComment extends React.Component {
         <div className="wrapper">
           <div className="content">
             <a className="button" onClick={this.handleGoBack}>Wstecz</a>
-            <form onSubmit={this.handleSubmit} ref={this.form}>
+            <form onSubmit={this.handleSubmit} ref={this.form} className="mainForm">
               <input type="hidden" name="comment[topic_id]" value={this.state.topic_id} />
               <input type="hidden" name="comment[user_id]" value={this.state.user_id} />
-              <label>
-                Treść:
-                <textarea type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
-              </label>
+
+              <label htmlFor="content">Treść:</label>
+              <textarea id="content" type="text" name="comment[content]" value={this.state.content} onChange={this.handleContentChange}/>
+
               <input type="submit" value="Wyślij"/>
             </form>
           </div>
